@@ -50,7 +50,7 @@ cryptographic-hash-key-utility/
 Clone the repository:
 
 ```bash
-git https://github.com/gsambikag-star/cryptographic-hash-key-utility
+git clone https://github.com/gsambikag-star/cryptographic-hash-key-utility
 ```
 
 Create a virtual environment:
