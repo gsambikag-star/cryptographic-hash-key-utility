@@ -23,6 +23,10 @@ This project provides a command-line cryptographic utility designed to demonstra
 - Configurable iteration count and derived key length.
 - Password verification using derived keys.
 - Timing-resistant key comparison using hmac.compare_digest().
+- HMAC generation using SHA-256 and SHA-512.
+- HMAC verification using shared secret keys.
+- Message integrity and tampering detection.
+- Timing-resistant HMAC comparison using hmac.compare_digest().
 
 ## Technology Stack
 
@@ -160,6 +164,45 @@ python -m unittest discover -s tests -v
 - Store the iteration count, algorithm and key length alongside the salt.
 - Use a unique random salt for each password.
 - Use secure comparison methods when verifying derived keys.
+
+
+## HMAC Generation and Verification
+
+HMAC stands for Hash-based Message Authentication Code.
+
+It verifies message integrity and authenticity using a shared secret key.
+
+### Supported Algorithms
+- HMAC-SHA256
+- HMAC-SHA512
+
+### Features
+- Generate HMAC authentication codes.
+- Verify messages using shared secret keys.
+- Detect modified or tampered messages.
+- Reject incorrect secret keys.
+- Secure comparison using hmac.compare_digest().
+
+### Running HMAC
+
+Run the manual testing script:
+
+```bash
+python test_hmac.py
+```
+
+### Running Automated Tests
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+### Security Notes
+- Keep secret keys confidential.
+- HMAC does not encrypt messages.
+- The same message and key produce the same HMAC.
+- Use secure comparison methods during verification.
+
 
 ## Author
 
