@@ -1,4 +1,4 @@
-
+import hmac
 import hashlib
 
 
@@ -45,3 +45,17 @@ def hash_file(file_path, algorithm="sha256"):
 
     # Return the final hash
     return hash_object.hexdigest()
+
+
+def verify_file_hash(file_path, expected_hash, algorithm="sha256"):
+    """
+    Verify file integrity by comparing its actual hash
+    with the expected checksum.
+    """
+
+    actual_hash = hash_file(file_path, algorithm)
+
+    return hmac.compare_digest(
+        actual_hash.lower(),
+        expected_hash.strip().lower()
+    )

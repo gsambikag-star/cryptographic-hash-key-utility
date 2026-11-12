@@ -203,6 +203,24 @@ python -m unittest discover -s tests -v
 - The same message and key produce the same HMAC.
 - Use secure comparison methods during verification.
 
+## Phase 5: File Integrity Verification
+
+Implemented file integrity verification using SHA-256 and SHA-512 hashing.
+
+### Features
+- Generates a checksum for a file.
+- Verifies file integrity by comparing the actual checksum with the expected checksum.
+- Detects whether a file has been modified.
+- Uses `hmac.compare_digest()` for secure checksum comparison.
+
+### Testing
+- Original file verification: True
+- Modified file verification: False
+- SHA-512 verification: Passed
+- Invalid checksum verification: False
+
+All 25 automated tests passed successfully.
+
 
 ## Author
 
