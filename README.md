@@ -222,6 +222,33 @@ Implemented file integrity verification using SHA-256 and SHA-512 hashing.
 All 25 automated tests passed successfully.
 
 
+## Phase 6: Main Application Integration
+
+Integrated all cryptographic utilities into a single menu-driven Python application.
+
+### Features
+1. Generate Text Hash (SHA-256 / SHA-512)
+2. Generate File Hash (SHA-256 / SHA-512)
+3. Generate Secure Salt
+4. Derive Key using PBKDF2
+5. Verify Password
+6. Generate HMAC
+7. Verify HMAC
+8. Verify File Integrity
+9. Exit
+
+### Input Validation
+- Handles empty inputs.
+- Detects invalid algorithms.
+- Handles incorrect file paths.
+- Validates hexadecimal salt and derived key inputs.
+- Handles invalid menu choices.
+
+### Testing
+- All 25 automated tests passed.
+- All eight application features manually tested.
+- Successful and unsuccessful verification scenarios tested.
+
 ## Author
 
 Ambika G.S 
