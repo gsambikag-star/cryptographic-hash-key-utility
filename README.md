@@ -1,232 +1,94 @@
-
 # Cryptographic Hash & Key Derivation Utility
 
-A Python-based cybersecurity utility demonstrating cryptographic hashing, secure key derivation, HMAC authentication, and file integrity verification.
+A Python-based cybersecurity utility demonstrating cryptographic hashing, secure key derivation, HMAC authentication, and file integrity verification, all in one menu-driven command-line application.
+
+Built as an internship project at **Codenova**.
+
+---
 
 ## Project Overview
 
-This project provides a command-line cryptographic utility designed to demonstrate important cybersecurity concepts using Python.
+This project provides a command-line cryptographic utility designed to demonstrate important cybersecurity concepts using Python's standard library. It covers how passwords are protected, how messages are authenticated, and how file tampering is detected.
 
 ## Features
 
-- SHA-256 text hashing
-- SHA-512 text hashing
-- SHA-256 file hashing
-- SHA-512 file hashing
-- Secure random salt generation (planned)
-- PBKDF2 key derivation (planned)
-- HMAC generation and verification (planned)
-- File integrity verification (planned)
-- Secure random salt generation using Python's secrets module.
-- PBKDF2-based cryptographic key derivation.
-- Support for PBKDF2-HMAC-SHA256 and PBKDF2-HMAC-SHA512.
-- Configurable iteration count and derived key length.
-- Password verification using derived keys.
-- Timing-resistant key comparison using hmac.compare_digest().
-- HMAC generation using SHA-256 and SHA-512.
-- HMAC verification using shared secret keys.
-- Message integrity and tampering detection.
-- Timing-resistant HMAC comparison using hmac.compare_digest().
+- **Hashing:** SHA-256 and SHA-512 for both text and files
+- **Secure salt generation:** cryptographically secure random salts using Python's `secrets` module
+- **Key derivation:** PBKDF2-HMAC-SHA256 and PBKDF2-HMAC-SHA512 with configurable iteration count and key length
+- **Password verification:** re-derives a key from the entered password and compares it with the stored key
+- **HMAC:** generation and verification using HMAC-SHA256 and HMAC-SHA512 with shared secret keys
+- **Tamper detection:** detects modified messages and rejects incorrect secret keys
+- **File integrity verification:** compares the actual checksum of a file with an expected checksum
+- **Timing-resistant comparison:** uses `hmac.compare_digest()` for all key, HMAC and checksum comparisons
+- **Input validation:** handles empty inputs, invalid algorithms, incorrect file paths, invalid hexadecimal values and invalid menu choices
 
 ## Technology Stack
 
 - Python 3
-- hashlib
-- secrets
-- hmac
-- argparse
-- unittest
+- `hashlib`
+- `secrets`
+- `hmac`
+- `argparse`
+- `unittest`
 - Git and GitHub
 
 ## Project Structure
 
-```text
+```
 cryptographic-hash-key-utility/
-├── src/
-│   ├── __init__.py
-│   └── hashing.py
-├── tests/
-│   └── test_hashing.py
+├── src/                      # Core cryptographic modules
+├── tests/                    # Automated unit tests
 ├── samples/
-│   └── sample.txt
-├── main.py
+│   └── sample.txt            # Sample file for hashing and integrity checks
+├── main.py                   # Menu-driven application
+├── test_hashing.py           # Manual demo: text hashing
+├── test_file_hashing.py      # Manual demo: file hashing
+├── test_key_derivation.py    # Manual demo: salt and PBKDF2
+├── test_hmac.py              # Manual demo: HMAC
+├── test_file_integrity.py    # Manual demo: file integrity
 ├── requirements.txt
 ├── README.md
 └── .gitignore
 ```
 
-## Running the Project
+## Getting Started
 
-Clone the repository:
+**1. Clone the repository**
 
-```bash
+```
 git clone https://github.com/gsambikag-star/cryptographic-hash-key-utility
+cd cryptographic-hash-key-utility
 ```
 
-Create a virtual environment:
+**2. Create a virtual environment**
 
-```bash
+```
 python -m venv venv
 ```
 
-Activate it on Windows:
+**3. Activate it**
 
-```powershell
+Windows (PowerShell):
+
+```
 .\venv\Scripts\Activate.ps1
 ```
 
-Run the hashing demonstration:
+macOS / Linux:
 
-```bash
-python test_hashing.py
+```
+source venv/bin/activate
 ```
 
-Run automated tests:
+**4. Run the application**
 
-```bash
-python -m unittest discover -s tests -v
+```
+python main.py
 ```
 
-## Testing
+## Application Menu
 
-The hashing module is tested using:
-
-- Known SHA-256 test vectors
-- Known SHA-512 test vectors
-- Hash output length verification
-- Invalid algorithm handling
-- File hashing verification
-
-## Project Status
-
-Phase 1: Environment and repository setup.
-
-Phase 2: SHA-256 and SHA-512 hashing implementation and testing.
-
-Further features are under development.
-
-
-## Secure Salt Generation and PBKDF2
-
-This project implements secure password-based key derivation using PBKDF2.
-
-### 1. Salt Generation
-
-- Uses Python's `secrets` module.
-- Generates cryptographically secure random salts.
-- Default salt length: 16 bytes (128 bits).
-- Each password can have a unique salt.
-
-### 2. PBKDF2 Key Derivation
-
-Uses Python's `hashlib.pbkdf2_hmac()` function.
-
-Supported algorithms:
-- SHA-256
-- SHA-512
-
-Default configuration:
-- Iterations: 600,000
-- Salt length: 16 bytes
-- Derived key length: 32 bytes
-
-### 3. Password Verification
-
-The utility verifies passwords by:
-1. Accepting the entered password.
-2. Using the previously generated salt.
-3. Deriving a new key using PBKDF2.
-4. Comparing the new key with the stored derived key.
-5. Returning True if they match, otherwise False.
-
-The comparison uses `hmac.compare_digest()`.
-
-### 4. Running Key Derivation
-
-Run the manual testing script:
-
-```bash
-python test_key_derivation.py
 ```
-
-### 5. Running Automated Tests
-
-Run all project tests:
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-### 6. Security Notes
-
-- Salts are not secret and should be stored with the derived key.
-- Never store plaintext passwords.
-- Store the iteration count, algorithm and key length alongside the salt.
-- Use a unique random salt for each password.
-- Use secure comparison methods when verifying derived keys.
-
-
-## HMAC Generation and Verification
-
-HMAC stands for Hash-based Message Authentication Code.
-
-It verifies message integrity and authenticity using a shared secret key.
-
-### Supported Algorithms
-- HMAC-SHA256
-- HMAC-SHA512
-
-### Features
-- Generate HMAC authentication codes.
-- Verify messages using shared secret keys.
-- Detect modified or tampered messages.
-- Reject incorrect secret keys.
-- Secure comparison using hmac.compare_digest().
-
-### Running HMAC
-
-Run the manual testing script:
-
-```bash
-python test_hmac.py
-```
-
-### Running Automated Tests
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-### Security Notes
-- Keep secret keys confidential.
-- HMAC does not encrypt messages.
-- The same message and key produce the same HMAC.
-- Use secure comparison methods during verification.
-
-## Phase 5: File Integrity Verification
-
-Implemented file integrity verification using SHA-256 and SHA-512 hashing.
-
-### Features
-- Generates a checksum for a file.
-- Verifies file integrity by comparing the actual checksum with the expected checksum.
-- Detects whether a file has been modified.
-- Uses `hmac.compare_digest()` for secure checksum comparison.
-
-### Testing
-- Original file verification: True
-- Modified file verification: False
-- SHA-512 verification: Passed
-- Invalid checksum verification: False
-
-All 25 automated tests passed successfully.
-
-
-## Phase 6: Main Application Integration
-
-Integrated all cryptographic utilities into a single menu-driven Python application.
-
-### Features
 1. Generate Text Hash (SHA-256 / SHA-512)
 2. Generate File Hash (SHA-256 / SHA-512)
 3. Generate Secure Salt
@@ -236,19 +98,102 @@ Integrated all cryptographic utilities into a single menu-driven Python applicat
 7. Verify HMAC
 8. Verify File Integrity
 9. Exit
+```
 
-### Input Validation
-- Handles empty inputs.
-- Detects invalid algorithms.
-- Handles incorrect file paths.
-- Validates hexadecimal salt and derived key inputs.
-- Handles invalid menu choices.
+## How It Works
 
-### Testing
-- All 25 automated tests passed.
-- All eight application features manually tested.
-- Successful and unsuccessful verification scenarios tested.
+### Hashing
+
+Text and files are hashed with SHA-256 or SHA-512 using `hashlib`. The same input always produces the same hash, and any change to the input produces a completely different hash.
+
+### Secure Salt Generation
+
+- Uses Python's `secrets` module
+- Generates cryptographically secure random salts
+- Default salt length: 16 bytes (128 bits)
+- Each password should use its own unique salt
+
+### PBKDF2 Key Derivation
+
+Uses `hashlib.pbkdf2_hmac()` with SHA-256 or SHA-512.
+
+Default configuration:
+
+| Setting            | Default       |
+| ------------------ | ------------- |
+| Iterations         | 600,000       |
+| Salt length        | 16 bytes      |
+| Derived key length | 32 bytes      |
+
+### Password Verification
+
+1. Accept the entered password.
+2. Use the previously generated salt.
+3. Derive a new key with PBKDF2.
+4. Compare the new key with the stored derived key using `hmac.compare_digest()`.
+5. Return `True` if they match, otherwise `False`.
+
+### HMAC (Hash-based Message Authentication Code)
+
+HMAC verifies message integrity and authenticity using a shared secret key. Supported algorithms: HMAC-SHA256 and HMAC-SHA512. A modified message or an incorrect key causes verification to fail.
+
+### File Integrity Verification
+
+Generates a checksum for a file and compares it with an expected checksum to detect whether the file has been modified.
+
+## Testing
+
+Run the full automated test suite:
+
+```
+python -m unittest discover -s tests -v
+```
+
+Manual demonstration scripts:
+
+```
+python test_hashing.py
+python test_file_hashing.py
+python test_key_derivation.py
+python test_hmac.py
+python test_file_integrity.py
+```
+
+**Test coverage includes:**
+
+- Known SHA-256 and SHA-512 test vectors
+- Hash output length verification
+- Invalid algorithm handling
+- File hashing verification
+- Salt generation and PBKDF2 key derivation
+- Correct and incorrect password verification
+- HMAC generation, verification, tamper detection and wrong-key rejection
+- File integrity: original file (`True`), modified file (`False`), SHA-512 verification, invalid checksum (`False`)
+
+**Result:** all 25 automated tests pass. All eight application features were also tested manually, including successful and unsuccessful verification scenarios.
+
+## Security Notes
+
+- Never store plaintext passwords.
+- Salts are not secret and should be stored alongside the derived key.
+- Store the iteration count, algorithm and key length together with the salt.
+- Use a unique random salt for each password.
+- Keep HMAC secret keys confidential.
+- HMAC provides integrity and authenticity, not encryption.
+- The same message and key always produce the same HMAC.
+- Always use constant-time comparison (`hmac.compare_digest()`) when verifying keys, HMACs and checksums.
+
+## Project Status
+
+Complete. All planned phases are implemented and tested:
+
+- Phase 1: Environment and repository setup
+- Phase 2: SHA-256 and SHA-512 hashing
+- Phase 3: Secure salt generation and PBKDF2 key derivation
+- Phase 4: HMAC generation and verification
+- Phase 5: File integrity verification
+- Phase 6: Main application integration
 
 ## Author
 
-Ambika G.S 
+**Ambika G.S**
